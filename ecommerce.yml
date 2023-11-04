@@ -8,7 +8,7 @@ spring:
       url: jdbc:h2:mem:testdb
       username: sa
       password: 1234
-    jpa:
-      database-platform: org.hibernate.dialect.H2Dialect
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
 #     username: guest
 #     password: {cipher}382cd267bd1a1fa4ddcbf6ecb1ef7afdaf6e8e3be90187ab3db5e75aac120b3b
