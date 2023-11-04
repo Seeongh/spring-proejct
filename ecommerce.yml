@@ -2,11 +2,12 @@ greeting:
   message: This is Spring config BUS TEST 
 
 spring:
-  datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:testdb
-    username: sa
-    password: 1234
+  h2:
+    datasource:
+      driver-class-name: org.h2.Driver
+      url: jdbc:h2:mem:testdb
+      username: sa
+      password: 1234
 # spring:
 #   rabbitmq:
 #     host: 127.0.0.1
