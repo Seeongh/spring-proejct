@@ -2,7 +2,7 @@ greeting:
   message: This is Spring config BUS + h2 encryted
 
 order_service:
-  url: http://127.0.0.1:8000/order-service/%s/orders
+  url: http://ORDER-SERVICE/order-service/%s/orders
 
 #     username: guest
 #     password: {cipher}382cd267bd1a1fa4ddcbf6ecb1ef7afdaf6e8e3be90187ab3db5e75aac120b3b
