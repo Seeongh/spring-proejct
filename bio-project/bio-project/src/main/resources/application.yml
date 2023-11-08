@@ -1,0 +1,10 @@
+server:
+  port: 8111
+
+spring:
+  application:
+    name: bio-project-service
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp

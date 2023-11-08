@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.core.userdetails.UserDetails;
 //import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
@@ -35,6 +37,7 @@ public class UserServiceImpl implements UserService{
     Environment env;
     RestTemplate restTemplate;
     OrderServiceClient orderServiceClient;
+    CircuitBreakerFactory circuitBreakerFactory;
 
 //    @Override
 //    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -52,12 +55,14 @@ public class UserServiceImpl implements UserService{
                            BCryptPasswordEncoder passwordEncoder,
                            Environment env,
                            RestTemplate restTemplate,
-                           OrderServiceClient orderServiceClient) {
+                           OrderServiceClient orderServiceClient,
+                           CircuitBreakerFactory circuitBreakerFactory) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.env = env;
         this.restTemplate =restTemplate;
         this.orderServiceClient= orderServiceClient;
+        this.circuitBreakerFactory = circuitBreakerFactory;
     }
 
     @Override
@@ -103,9 +108,15 @@ public class UserServiceImpl implements UserService{
             }
       */
 
-        /*ErrorDecoder*/
-        List<ResponseOrder> orderList = orderListResponse.getBody();
-
+        /*ErrorDecoder
+        List<ResponseOrder> orderList = orderServiceClient.getOrders(userId);
+        */
+        log.info("before call orderservice");
+        CircuitBreaker circuitBreaker = circuitBreakerFactory.create("circuitbreaker"); //서킷브레이커 생성
+        List<ResponseOrder> orderList = circuitBreaker.run(() -> orderServiceClient.getOrders(userId),
+                throwable -> new ArrayList<>());
+        //데이터가 존재하면 그 데이터를 쓰고 없으면 비어있는 리스트 데이터를 씀
+        log.info("after call orderservice");
         userDto.setOrders(orderList);
         return userDto;
     }
