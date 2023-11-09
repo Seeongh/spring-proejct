@@ -38,7 +38,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: refresh, health, beans, bus-refresh
+        include: refresh, health, beans, bus-refresh, info, metrics, prometheus
 
 #greeting:
 #  message: Welcome to the Simple E-commerce.
@@ -46,4 +46,4 @@ management:
 logging:
   level:
     org.springframework.security: INFO
-    com.example.userservice.client: DEBUG
+  #  com.example.userservice.client: DEBUG

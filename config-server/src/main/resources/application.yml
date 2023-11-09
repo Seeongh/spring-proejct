@@ -17,7 +17,7 @@ spring:
 #        native:
 #          search-locations: file:///d/source/Spring_pratice/git-local-repo/ecommerce.yml
         git:
-          uri: https://github.com/Seeongh/spring-proejct.git
+          uri: https://github.com/Seeongh/spring-proejct/tree/4938bd621e8ceae7fa47980974f28c843fb7d3a4/git-local-repo
           default-Label: master
 
 management:

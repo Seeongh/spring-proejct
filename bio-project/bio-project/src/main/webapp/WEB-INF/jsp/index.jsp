@@ -1,6 +1,12 @@
 <!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <html lang="en">
 <head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&display=swap" rel="stylesheet">
+
     <meta charset="UTF-8">
     <title>hellow</title>
 </head>
@@ -11,54 +17,72 @@
 <div id="root" class="bioWrap">
     <div class="App" style>
         <div id="BioHead" class="header_frag">
-            <div class="inner_header">
-                <h1 class="tit_header">  </h1>
+            <div class="inner_sidebar">
+                <div class="sidebar_box">
+                    <div class="sidebar_index">
+                      <button type="button" style="border:none">
+                      <img class = "sidebaricon" , src="../images/main/icon_home.png" alt="">
+                      </button>
+                    </div>
+                    <div class="sidebar_index">
+                      <img src="../images/main/icon_login_user.png" alt="", onclick=yet()>
+                    </div>
+                    <div class="sidebar_index">
+                      <img class = "sidebaricon" , src="../images/main/icon_login_user.png" alt="", onclick=yet()>
+                    </div>
+                    <div class="sidebar_index">
+                      <img class = "sidebaricon" , src="../images/main/icon_login_user.png" alt="", onclick=yet()>
+                    </div>
+                </div>
            </div>
         </div>
         <main id="BioInfo">
             <main id="BioInfoContent" class="bioInfoContent">
                 <div id="Logo">
-                    <div class="logo">
+                    <div class="logo" style =" font-family: 'Black Han Sans';">
                         <h2>    MZ HealthCare   </h2>
                     </div>
                     <div class="notice">
                         <div class="search"> </div>
                     </div>
                </div>
-                <div id="bio-graph">
+                <div id="Bio-graph">
                     <div class="graph-rhythm">
-                        <div class="biorhythm">
+                        <div class="biorhythm_content">
                         </div>
                     </div>
 
                     <div class="graph-rhythm">
-                        <div class="biorhythm">
+                        <div class="biorhythm_content">
                         </div>
                     </div>
                 </div>
-                <div class="banner">
+                <div id="Banner">
                     <div class="banner-content">
                     </div>
                 </div>
 
-                <div class="list">
+                <div id="Bio_list">
                     <div class="user-list">
                     </div>
                 </div>
             </main>
             <main id="BioMyContent" class="bioMyContent">
-                <div class="myInformation">
+                <div id="Information">
                     <div class="myProfile">
-                        <h3> Hellow, James</h3>
+                         <button type="button" class="login_box__form_btn" id="btn_login"
+                         style="margin-left: 7vw;font-family: 'Black Han Sans', sans-serif;border:none;background-color:rgb(232,241,255);"
+                         onclick="duplicatelogin()">로그인 해주세요</button>
+                         <img src="../images/main/icon_login_user.png" alt="" style = "width:2vw;height:3vh;">
                     </div>
                 </div>
-                <div class="target">
+                <div id="Targetinfo">
                     <div class="graph-rhythm">
-                        <div class="biorhythm">
+                        <div class="biorhythm_content">
                         </div>
                     </div>
                 </div>
-                <div class="grade">
+                <div id="GradePoint">
                     <div class="myGrade">
                     </div>
                 </div>
@@ -66,163 +90,44 @@
         </main>
     </div>
 </div>
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+<link rel="stylesheet" href="../css/main.css" type="text/css">
+<script>
 
-    #BioHead {
-        width : 10vw;
-        height: 100vh;
-        float: left;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-	.inner_header {
-        box-sizing: border-box;
-        background-color: white;
-        border-radius: 25px;
-        height : 92vh;
-        width: 9vh;
+function yet(){alert("아직 쓸 수 없습니다.");}
+// 중복 로그인 방지
+	function duplicatelogin(){
+		if(!!getCookie('acToken')){	//로그인 되어있을때
+			location.href = '/';
+		}else{
+			$.ajax({
+		           type:"Post",
+		           url:"/user/loginCheck",
+		           dataType:"JSON", // 옵션이므로 JSON으로 받을게 아니면 안써도 됨
+		           data: {
+// 		        	   "userRoleFk": $('select[name="userRoleFk"]').val(),
+		        	   "userId": $('input[id="userId"]').val(),
+		        	   "userPwEnc": $('input[id="userPwEnc"]').val()
+		           },
+		           success : function(data) {
+		               if(data.resultCode == '0000'){
+					   		location.href = '/';
+		               }else{
+			        	   alert('아이디 또는 비밀번호를 잘못 입력했습니다.\n입력하신 내용을 다시 확인해주세요.')
+			           }
+		           },
+		           complete : function(data) {
+		                 // 통신이 실패했어도 완료가 되었을 때 이 함수를 타게 된다.
+
+		           },
+		           error : function(xhr, status, error) {
+		                console.log(error)
+		           }
+		     });
+// 			$('#command').submit();
+		}
 	}
 
-    #BioInfo {
-        width : 87vw;
-        height: 100vh;
-        float: left;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
 
-	#BioInfoContent {
-        width : 58vw;
-        height: 92vh;
-        float: left;
-	}
-
-	#BioMyContent {
-        width : 29vw;
-        height: 92vh;
-        float: left;
-	}
-
-	#Logo{
-	    width: 58vw;
-	    height: 8vh;
-	    float: top;
-	    display: flex;
-        justify-content: center;
-        align-items: center;
-	}
-    .logo{
-        width: 20vw;
-        height: 8vh;
-        padding-left: 2vw;
-        padding-top: 3vh;
-	}
-	.notice {
-        width: 38vw;
-        height: 8vh;
-	}
-	.search {
-        width: 37vw;
-        height: 4vh;
-        background-color: white;
-        border-radius: 25px;
-        margin-top:3vh;
-	}
-
-	#bio-graph {
-	    width: 58vw;
-        height: 38vh;
-        display: flex;
-        float:top;
-	}
-	.graph-rhythm {
-        width: 29vw;
-        height: 38vh;
-        float:left;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-	}
-    .biorhythm {
-        width : 25vw;
-        height: 30vh;
-        background-color: white;
-        border-radius: 25px;
-    }
-
-
-    .banner {
-        width: 58vw;
-        height: 17vh;
-        display: flex;
-        float:top;
-        justify-content: center;
-        align-items: center;
-    }
-    .banner-content {
-        width: 55.5vw;
-        height: 16vh;
-        display: flex;
-        background-color: white;
-        border-radius: 25px;
-    }
-
-
-    .list {
-        width: 58vw;
-        height: 29vh;
-        display: flex;
-        float:top;
-        justify-content: center;
-        align-items: center;
-    }
-    .user-list{
-        width: 57vw;
-        height: 26vh;
-        display: flex;
-        background-color: white;
-        border-radius: 25px;
-    }
-
-
-	.myInformation {
-            width: 29vw;
-            height: 8vh;
-            float:top;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        	}
-    .myProfile {
-           padding-top: 3vh;
-           width: 20vw;
-           height: 8vh;
-           text-align: right;
-       }
-
-    .grade {
-        width: 29vw;
-        height: 46vh;
-        float:top;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .myGrade {
-        width : 26vw;
-        height: 46vh;
-        background-color: white;
-        border-radius: 25px;
-    }
-
-
-</style>
+</script>
 </body>
 </html>
