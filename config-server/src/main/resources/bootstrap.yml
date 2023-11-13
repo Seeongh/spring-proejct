@@ -1,6 +1,7 @@
 encrypt:
 #  key: abcdefg1234 #이 값을 key값으로 쓰게따
   key-store:
-    location: file:\\\D:\source\Spring_pratice\keystore\apiEncrytionKey.jks
+    #location: file:\\\D:\source\Spring_pratice\keystore\apiEncrytionKey.jks
+    location: file:\\\apiEncryptionKey.jks
     password: test1234
     alias: apiEncryptionKey
