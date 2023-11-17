@@ -38,12 +38,12 @@
 //    }
 //    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 //        //권한 작업
-//        http.
-//                csrf(CsrfConfigurer::disable)//csrf사용안함(사이트 위변조 요청 방지)근데이게 무슨 문법이냐 도대체
-//                .authorizeHttpRequests(authorize ->
-//                        authorize
-//                                .requestMatchers("/**").permitAll()
-//                                .anyRequest().authenticated());
+//       http.
+//               csrf(CsrfConfigurer::disable);//csrf사용안함(사이트 위변조 요청 방지)근데이게 무슨 문법이냐 도대체
+//               // .authorizeHttpRequests(authorize ->
+//               //         authorize
+//                //                .requestMatchers("/**").permitAll()
+//               //                 .anyRequest().authenticated());
 ////                                .requestMatchers(AUTH_WHITELIST)
 ////                                .permitAll()
 ////                                  .requestMatchers(new IpAddressMatcher("127.0.0.1"))
@@ -62,13 +62,13 @@
 //        return http.build();
 //    }
 //
-//    private AuthenticationFilter getAutenticationFilter() throws Exception {
-//        AuthenticationFilter authenticationFilter = new AuthenticationFilter();
-//        AuthenticationManagerBuilder builder = new AuthenticationManagerBuilder(objectPostProcessor);
-//        authenticationFilter.setAuthenticationManager(authenticationManager(builder));
+//  //  private AuthenticationFilter getAutenticationFilter() throws Exception {
+//      //  AuthenticationFilter authenticationFilter = new AuthenticationFilter();
+//      //  AuthenticationManagerBuilder builder = new AuthenticationManagerBuilder(objectPostProcessor);
+//      //  authenticationFilter.setAuthenticationManager(authenticationManager(builder));
 //
-//        return authenticationFilter;
-//    }
+//       // return authenticationFilter;
+//   // }
 //
 //    //select pwd from users where email =  ?
 //    // dp_pwd(encrypted) == input_pwd(encryted)로 변경 필요

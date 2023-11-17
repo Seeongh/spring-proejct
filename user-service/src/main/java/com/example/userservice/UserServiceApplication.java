@@ -11,10 +11,11 @@ import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.client.RestTemplate;
 
 
-@SpringBootApplication(exclude = SecurityAutoConfiguration.class)
+@SpringBootApplication
 @EnableDiscoveryClient //eureka server에 등록
 @EnableFeignClients //페인클라이언트(ms 통싲ㄴ) 에 쓰겠다.
 public class  UserServiceApplication {
@@ -23,11 +24,12 @@ public class  UserServiceApplication {
 		SpringApplication.run(UserServiceApplication.class, args);
 	}
 
-	@Bean
-	@LoadBalanced
-	public BCryptPasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+
+//	@Bean
+//	@LoadBalanced
+//	public BCryptPasswordEncoder passwordEncoder() {
+//		return new BCryptPasswordEncoder();
+//	}
 
 	@Bean
 	public Logger.Level feignLoggerLevel() {

@@ -1,5 +1,5 @@
 server:
-  port: 0
+  port: 8881
 
 spring:
   application:
@@ -40,10 +40,17 @@ management:
       exposure:
         include: refresh, health, beans, bus-refresh, info, metrics, prometheus
 
+#spring security pratice
+jpa:
+  hibernate:
+    ddl-auto: update #create update none
+    naming:
+      physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  show-sql: true
 #greeting:
 #  message: Welcome to the Simple E-commerce.
 
-logging:
-  level:
-    org.springframework.security: INFO
+#logging:
+ # level:
+  #  org.springframework.security: INFO
   #  com.example.userservice.client: DEBUG

@@ -33,7 +33,7 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService{
 
     UserRepository userRepository;
-    BCryptPasswordEncoder passwordEncoder;
+   // BCryptPasswordEncoder passwordEncoder;
     Environment env;
     RestTemplate restTemplate;
     OrderServiceClient orderServiceClient;
@@ -52,13 +52,13 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository,
-                           BCryptPasswordEncoder passwordEncoder,
+                           //BCryptPasswordEncoder passwordEncoder,
                            Environment env,
                            RestTemplate restTemplate,
                            OrderServiceClient orderServiceClient,
                            CircuitBreakerFactory circuitBreakerFactory) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
+      //  this.passwordEncoder = passwordEncoder;
         this.env = env;
         this.restTemplate =restTemplate;
         this.orderServiceClient= orderServiceClient;
@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService{
         ModelMapper mapper = new ModelMapper();
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         UserEntity userEntity = mapper.map(userDto,UserEntity.class);
-        userEntity.setEncryptedPwd(passwordEncoder.encode(userDto.getPwd()));
+        //userEntity.setEncryptedPwd(passwordEncoder.encode(userDto.getPwd()));
 
         userRepository.save(userEntity);
 
