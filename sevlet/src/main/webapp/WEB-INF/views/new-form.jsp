@@ -15,5 +15,6 @@
         <button type="submit">전송</button>
 
     </form>
+    <a href ="/servlet-mvc/members">목록</a>
 </body>
 </html>
