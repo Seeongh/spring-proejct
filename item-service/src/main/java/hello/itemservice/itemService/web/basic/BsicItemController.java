@@ -90,7 +90,7 @@ public class BsicItemController {
         return "basic/item";
     }
 
-    @PostMapping("/add")
+    //@PostMapping("/add")
     public String addItemv4(Item item) {
         //default로 class명을 첫글자만 소문자로 바꿔서 modelattribute에 담긴다
         itemRepository.save(item);
@@ -98,6 +98,11 @@ public class BsicItemController {
         return "basic/item";
     }
 
+    @PostMapping("/add")
+    public String addItemv5(Item item) {
+        itemRepository.save(item);
+        return "redirect:/basic/items/" + item.getId(); //PRG 방식으로 이슈 개선
+    }
     @GetMapping("/{itemId}/edit")
     public String editForm(@PathVariable Long itemId, Model model) {
         Item item = itemRepository.findById(itemId);
