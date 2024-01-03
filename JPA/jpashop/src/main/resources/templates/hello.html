@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<!--thymleaf 사용시 기본으로 넣음-->
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--모델에서 datakey를 꺼내서 값을 empty 를 data형변수로 치환해서 넣어줌 렌드링떄 -->
+<!--태그가 저 태그로 인해 hello로 변경해줌-->
+<p th:text="${data}">empty</p>
+</body>
+</html>
