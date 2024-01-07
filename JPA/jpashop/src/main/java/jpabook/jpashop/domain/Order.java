@@ -64,4 +64,15 @@ public class Order {
         this.delivery =delivery;
         delivery.setOrder(this);
     }
+
+    //==생성메서드==//
+    /**
+     * 연관관계가 있는 복잡한건 별도의 메소드가 있는게 나음
+     */
+    public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) {
+        Order order = new Order() ;
+        order.setName(member);
+        order.setDelivery(delivery);
+        o
+    }
 }
