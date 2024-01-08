@@ -19,7 +19,7 @@ public class Member {
 
     private String name;
 
-    @Embedded
+    @Embedded //내장 타입이다.
     private Address address;
 
     @OneToMany(mappedBy = "member") //주인이 아니고 order테이블에 있는 member의  거울이에요 = readonly
