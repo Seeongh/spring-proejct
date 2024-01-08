@@ -1,8 +1,10 @@
 package jpabook.jpashop.repository;
 
+import jpabook.jpashop.item.Book;
 import jpabook.jpashop.item.Item;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -17,7 +19,7 @@ public class ItemRepository {
         if(item.getId() == null) {
             em.persist(item);
         }
-        else{
+        else{ //수정했떠니 merge로 왔네? - 실무에서는 잘안씀
             em.merge(item);
         }
     }
@@ -30,4 +32,5 @@ public class ItemRepository {
         return em.createQuery("select i from Item i", Item.class)
                 .getResultList();
     }
+
 }
