@@ -38,7 +38,7 @@ public class ApplicationContextSameBeanFindTest {
     @Test
     @DisplayName("특정 타입을 모두 조회하기")
     public void findAllBeanByType() {
-        Map<String, MemberRepository> beansOfType = ac.getBeansOfType(MemberRepository.class); //Map  dmfh qksghks
+        Map<String, MemberRepository> beansOfType = ac.getBeansOfType(MemberRepository.class); //Map 으로 반환
          for(String key : beansOfType.keySet()){
              System.out.println("key = " + key + "value = " + beansOfType.get(key));
 
