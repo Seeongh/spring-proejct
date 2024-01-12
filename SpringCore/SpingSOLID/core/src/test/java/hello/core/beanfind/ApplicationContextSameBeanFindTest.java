@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.Map;
 
-import static hello.core.AppConfig.memberRepository;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
