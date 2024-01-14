@@ -12,19 +12,35 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrderServiceImpl implements OrderService{
 
-    private final MemberRepository memberRepository;
+    //필드 주입
+
+//    @Autowired private MemberRepository memberRepository;
+//    @Autowired private DiscountPolicy discountPolicy;
+
+
 //    private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
     //할인정책의 변경으로 다른 정책을 사용해야함
  //   private final DiscountPolicy discountPolicy = new RateDiscountPolicy();
 
     //위으 코드는 DIP, OCP 위반으로 추상화에 의존하도록 코드를 변경한다.
+
+    private final MemberRepository memberRepository;
     private final DiscountPolicy discountPolicy;
 
+//생성자 주입
     @Autowired
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }
+
+    //일반 메서드 주입- 수정자 주입시랑 비슷한 타이밍에 주입
+//    @Autowired
+//    public void init(MemberRepository memberRepository, DiscountPolicy discountPolicy){
+//        this.memberRepository = memberRepository;
+//        this.discountPolicy=discountPolicy;
+//    }
+
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
