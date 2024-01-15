@@ -1,5 +1,6 @@
 package hello.core.order;
 
+import hello.core.annotation.MainDiscountPolicy;
 import hello.core.discount.DiscountPolicy;
 import hello.core.discount.FixDiscountPolicy;
 import hello.core.discount.RateDiscountPolicy;
@@ -11,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor //생성자 코드를 그대로 넣어줌 final넣은 필드에!
+//@RequiredArgsConstructor //생성자 코드를 그대로 넣어줌 final넣은 필드에!
 public class OrderServiceImpl implements OrderService{
 
     //필드 주입
@@ -40,11 +41,12 @@ public class OrderServiceImpl implements OrderService{
 //    }
 
     //생성자 주입
-    //@Autowired //생성자 하나있어서 생략가능
-//    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
-//        this.memberRepository = memberRepository;
-//        this.discountPolicy = discountPolicy;
-//    }
+    @Autowired //생성자 하나있어서 생략가능
+    public OrderServiceImpl(MemberRepository memberRepository, @MainDiscountPolicy DiscountPolicy discountPolicy) {
+        //beantype이 2개여서 Quarilfier로 지정(관련 애노테이션 생성)
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
 
     //일반 메서드 주입- 수정자 주입시랑 비슷한 타이밍에 주입
 //    @Autowired

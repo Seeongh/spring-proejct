@@ -1,10 +1,13 @@
 package hello.core.discount;
 
+import hello.core.annotation.MainDiscountPolicy;
 import hello.core.member.Grade;
 import hello.core.member.Member;
 import org.springframework.stereotype.Component;
 
 @Component
+//@Qualifier("mainDiscountPolicy") // 문자열 컴파일안됨
+@MainDiscountPolicy
 public class RateDiscountPolicy implements  DiscountPolicy{
 
     private int discountPercent = 10;
