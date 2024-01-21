@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Scope;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.inject.Provider;
 
 public class SingletonWithPrototypeTest1 {
     @Test
@@ -31,11 +32,11 @@ public class SingletonWithPrototypeTest1 {
     @Test
     void singletoneClinetUsePrototype() {
 
-        AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(ClientBean3.class, PrototypeBean.class);
-        ClientBean3 bean = ac.getBean(ClientBean3.class);
+        AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(ClientBean4.class, PrototypeBean.class);
+        ClientBean4 bean = ac.getBean(ClientBean4.class);
         int count1 = bean.logic();
 
-        ClientBean3 bean1= ac.getBean(ClientBean3.class);
+        ClientBean4 bean1= ac.getBean(ClientBean4.class);
         int count2 =  bean1.logic();
 
         Assertions.assertThat(count1).isEqualTo(2);
@@ -77,10 +78,28 @@ public class SingletonWithPrototypeTest1 {
     static class ClientBean3 {
         
         @Autowired
-        private ObjectProvider<PrototypeBean> protoTypeBeanProvider;
+        private ObjectProvider<PrototypeBean> protoTypeBeanProvider; //ObjectFactory로 변경해도 동작.
         
         public int logic() {
-            PrototypeBean protoTypeBean = protoTypeBeanProvider.getObject();
+            PrototypeBean protoTypeBean = protoTypeBeanProvider.getObject(); //프로토타입빈을 찾아주는 기능을 제공
+            protoTypeBean.getCount();
+            protoTypeBean.addCount();
+            int count = protoTypeBean.getCount();
+            return count;
+        }
+    }
+
+
+    //provider get -> 스프링컨테이너를 통해 해당빈을 찾아서 반환.
+    //java 표준으로 spring에 의존하지 않음.
+    @Scope("singleton")
+    static class ClientBean4{
+
+        @Autowired
+        private Provider<PrototypeBean> protoTypeBeanProvider; //ObjectFactory로 변경해도 동작.
+
+        public int logic() {
+            PrototypeBean protoTypeBean = protoTypeBeanProvider.get(); //프로토타입빈을 찾아주는 기능을 제공
             protoTypeBean.getCount();
             protoTypeBean.addCount();
             int count = protoTypeBean.getCount();
