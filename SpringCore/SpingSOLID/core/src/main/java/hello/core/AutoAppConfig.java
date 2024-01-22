@@ -18,9 +18,9 @@ import org.springframework.context.annotation.FilterType;
 )
 public class AutoAppConfig {
 
-    @Bean(name = "memoryMemberRepository") //수동vs자동 충돌 - 오버라이딩 빈 데피니션(수동등록빈이 우선권)
-    MemberRepository memberRepository() {
-        return new MemoryMemberRepository();
-    }
+//    @Bean(name = "memoryMemberRepository") //수동vs자동 충돌 - 오버라이딩 빈 데피니션(수동등록빈이 우선권)
+//    MemberRepository memberRepository() {
+//        return new MemoryMemberRepository();
+//    }
 
 }
