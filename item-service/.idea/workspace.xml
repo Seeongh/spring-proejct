@@ -5,25 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d49226de-df6e-4c5d-9fb8-7c350a30d2f5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../JPA/jpashop/src/main/java/jpabook/jpashop/controller/BookForm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../JPA/jpashop/src/main/java/jpabook/jpashop/controller/ItemController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../JPA/jpashop/src/main/java/jpabook/jpashop/controller/MemberController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../JPA/jpashop/src/main/java/jpabook/jpashop/controller/MemberForm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../JPA/jpashop/src/main/java/jpabook/jpashop/controller/OrderController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../JPA/jpashop/src/main/resources/templates/items/createItemForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../JPA/jpashop/src/main/resources/templates/items/itemList.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../JPA/jpashop/src/main/resources/templates/items/updateItemForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../JPA/jpashop/src/main/resources/templates/members/createMemberForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../JPA/jpashop/src/main/resources/templates/members/memberList.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../JPA/jpashop/src/main/resources/templates/order/orderForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../JPA/jpashop/src/main/resources/templates/order/orderList.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../JPA/jpashop/src/test/java/jpabook/jpashop/service/ItemUpdateTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../JPA/jpashop/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../JPA/jpashop/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../JPA/jpashop/src/main/java/jpabook/jpashop/repository/ItemRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../JPA/jpashop/src/main/java/jpabook/jpashop/repository/ItemRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../JPA/jpashop/src/main/java/jpabook/jpashop/repository/OrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../JPA/jpashop/src/main/java/jpabook/jpashop/repository/OrderRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../JPA/jpashop/src/main/java/jpabook/jpashop/service/ItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../JPA/jpashop/src/main/java/jpabook/jpashop/service/ItemService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../JPA/jpashop/src/main/java/jpabook/jpashop/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../JPA/jpashop/src/main/java/jpabook/jpashop/service/OrderService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SpringCore/SpingSOLID/core/src/main/java/hello/core/MemberApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringCore/SpingSOLID/core/src/main/java/hello/core/MemberApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SpringCore/SpingSOLID/core/src/main/java/hello/core/OrderApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringCore/SpingSOLID/core/src/main/java/hello/core/OrderApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SpringCore/SpingSOLID/core/src/main/java/hello/core/member/MemberServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringCore/SpingSOLID/core/src/main/java/hello/core/member/MemberServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SpringCore/SpingSOLID/core/src/main/java/hello/core/order/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringCore/SpingSOLID/core/src/main/java/hello/core/order/OrderServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,20 +58,20 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "android.gradle.sync.needed": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "D:/source/Spring_pratice/item-service/src/main/resources/templates/basic",
-    "project.structure.last.edited": "Global Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;android.gradle.sync.needed&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/source/Spring_pratice/item-service/src/main/resources/templates/basic&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Global Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\source\Spring_pratice\item-service\src\main\resources\templates\basic" />
