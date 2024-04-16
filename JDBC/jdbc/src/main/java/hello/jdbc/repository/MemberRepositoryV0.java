@@ -5,6 +5,7 @@ import hello.jdbc.domain.Member;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.*;
+import java.util.NoSuchElementException;
 
 /**
  * jdbc - drivermanager사용
@@ -41,6 +42,82 @@ public class MemberRepositoryV0 {
             //항상 닫아놔야하는데 exception때문에 다못탈까봐 try-catch함
             close(con,pstmt, null);
         }
+    }
+
+    public Member findById(String memberId) {
+        String sql = "select * from member where member_id = ?";
+
+        Connection con= null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        Member member = new Member();
+
+        try {
+            con = getConnect();
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, memberId);
+
+            rs = pstmt.executeQuery();
+            if(rs.next()) {
+
+                member.setMemberId(rs.getString("member_id"));
+                member.setMoney(rs.getInt("money"));
+                return member;
+
+            }
+            else {
+                throw new NoSuchElementException("member not found memberId="+memberId);
+            }
+        } catch (SQLException e) {
+            log.error("db error", e) ;
+        }
+        finally{
+            close(con, pstmt, rs);
+        }
+
+        return member;
+    }
+
+    public void update(String memberId, int money) {
+        String sql = "update member set money=? where member_id = ?";
+
+        Connection con = null;
+        PreparedStatement pstmt = null;
+
+        try{
+            con = getConnect();
+            pstmt = con.prepareStatement(sql) ;
+            pstmt.setInt(1, money);
+            pstmt.setString(2, memberId);
+            int resultSize = pstmt.executeUpdate();
+            log.info("resultSize={}", resultSize);
+        }catch (SQLException e) {
+            log.error("db error", e) ;
+        }
+        finally{
+            close(con, pstmt, null);
+        }
+
+    }
+
+    void delete(String memberId) {
+        String sql = "delete from Member where member_Id = ?";
+
+        Connection con = null;
+        PreparedStatement pstmt = null;
+
+        try{
+            con = getConnect();
+            pstmt = con.prepareStatement(sql) ;
+            pstmt.setString(1, memberId);
+            pstmt.executeUpdate();
+        }catch (SQLException e) {
+            log.error("db error", e) ;
+        }
+        finally{
+            close(con, pstmt, null);
+        }
+
     }
 
     private void close(Connection con, Statement stmt, ResultSet resultSet){
