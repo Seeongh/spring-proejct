@@ -9,8 +9,12 @@ import java.io.IOException;
 import java.util.Enumeration;
 
 /**
+ * Request와 Response객체 활용 중
+ * Request는 1. get 2. form 데이터 3. http body 로 데이터를 줌
+ * 1번 , 2번은 request.getParameter로 확인
  * 1. 파라미터 전송기능
  * http://localhost:8088//request-param?username=hello&age=20
+ * 2. form 데이터의 경우에도 같은 쿼리파라미터가 body에 적재되어있어 같은 메소드를 사용함
  **/
 @WebServlet(name = "RequestParamServlet", urlPatterns = "/request-param")
 public class RequestParamServlet extends HttpServlet {

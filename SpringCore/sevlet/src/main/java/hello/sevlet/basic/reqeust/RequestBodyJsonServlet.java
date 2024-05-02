@@ -14,6 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * Request http 바디 - JSON 데이터 조회하기
+ * getInputStream()을 통해 inputstream을 가지고 와서 byte인 데이터를 StreamUtil을 이용해 문자열로 변환
+ * 해당 문자열을 OjbectMapper를 사용하여 객체로 변환하여 읽음
+ */
 @WebServlet(name="requestBodyJsonServlet", urlPatterns = "/request-body-json")
 public class RequestBodyJsonServlet extends HttpServlet {
 

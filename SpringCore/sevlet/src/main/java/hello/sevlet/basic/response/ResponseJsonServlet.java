@@ -10,6 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * 응답데이터 - JSON
+ * contentType을 application/json으로 설정하고
+ * ObjectMapper를 이용해 JSON을 String으로 변화하여 getWriter로 전달
+ */
 @WebServlet(name="responseJsonServlet",urlPatterns = "/response-json")
 public class ResponseJsonServlet extends HttpServlet {
 

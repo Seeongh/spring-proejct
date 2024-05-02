@@ -11,6 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * Request http 바디 - 텍스트 조회하기
+ * getInputStream()을 통해 inputstream을 가지고 와서 byte인 데이터를 StreamUtil을 이용해 문자열로 변환
+ */
 @WebServlet(name="requestBodyStringServlet", urlPatterns = "/request-body-string")
 public class RequestBodyStringServlet extends HttpServlet {
 

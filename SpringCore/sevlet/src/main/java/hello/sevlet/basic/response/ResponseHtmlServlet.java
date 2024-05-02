@@ -8,6 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+ * 응답 데이터 - html
+ * contentType을 text/html로 지정해주고
+ * getWriter를 얻어와 html로 응답할 수 있다.
+ */
 @WebServlet(name= "responseHtmlServler", urlPatterns = "/response-html")
 public class ResponseHtmlServlet extends HttpServlet {
     @Override

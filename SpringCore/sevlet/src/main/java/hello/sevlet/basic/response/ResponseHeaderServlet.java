@@ -8,6 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * 응답 데이터 - 단순 텍스트
+ * Response객체의 getWriter를 사용해 단순 텍스트로 응답이 가능하다.
+ */
 @WebServlet(name="responseHeaderServlet", urlPatterns = "/response-header")
 public class ResponseHeaderServlet extends HttpServlet {
 
@@ -27,6 +31,7 @@ public class ResponseHeaderServlet extends HttpServlet {
          cookie(response);
 //        response.setHeader("Pragma", "no-cache");
 //        response.setHeader("my-header","hello");
+
 
 
         response.getWriter().write("앙뇽");
