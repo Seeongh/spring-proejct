@@ -15,6 +15,16 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * request 의 parameter를 map에 넣고, 해당 map을 controller에 던짐
+ * modelView객체 등장
+ * modelView 생성자로 view 이름을 받아 셋팅하고,
+ * 해당 객체의 model(map)에  결과 값을 넣어 반환
+ * 반환한 view이름 + 공용 경로 더해주고,
+ *  model와 view이름 렌더
+ *
+ *  model은 request.setAttribute 로 반환
+ */
 @WebServlet(name="frontControllerServletv3", urlPatterns = "/front-controller/v3/*") //경로 하위에 뭐가있든 여기로옴
 public class FrontControllerServletv3 extends HttpServlet {
 

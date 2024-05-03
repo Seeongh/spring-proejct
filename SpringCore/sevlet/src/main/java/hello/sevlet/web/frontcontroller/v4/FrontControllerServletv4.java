@@ -16,6 +16,15 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * ModelView 를 생성해서 반환하는게 번거로워 Myview만 사용해서 controller에서 view이름만 반환
+ * model 은 controller의 proccess를 호출하기전에 생성.
+ * MyView 생성 후 render호출해서 (모델, 요청, 응답)
+ * request.setattribute에 모델담고 넘겨줌.
+ *
+ * 3과 다른건 많지 않지만
+ * model을 따로 생성해서 만들어 주는게 포인트
+ */
 @WebServlet(name="frontControllerServletv4", urlPatterns = "/front-controller/v4/*") //경로 하위에 뭐가있든 여기로옴
 public class FrontControllerServletv4 extends HttpServlet {
 
