@@ -10,6 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+ * 처음 서블릿을 통해 html 을 제공하였으나
+ * 코드가 많아지면서 지져분해지고 힘들어짐
+ *
+ * 변경의 라이프 사이클
+ * ui변경과 로직 변경은 서로 수정시 관련없는요소일 확률이 높음
+ * 이런경우 유지 보수를 위해 나눠주는게 편함
+ */
 @WebServlet(name = " memberFormServlet" , urlPatterns =  "/servlet/members/new-form")
 public class MemberFormServlet extends HttpServlet {
 

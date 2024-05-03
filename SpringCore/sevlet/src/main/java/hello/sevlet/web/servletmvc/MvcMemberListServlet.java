@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * request가 http 요청동안 제공하는 임시 저장소를 통해 member객체를 저장(model처럼씀)
+ */
 @WebServlet(name="mvcMemberListServlet", urlPatterns = "/servlet-mvc/members")
 public class MvcMemberListServlet extends HttpServlet {
     MemberRepository memberRepository = MemberRepository.getInstance();

@@ -15,6 +15,12 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 반복되는 view호출 부분을 MyView라는 클래스로 빼서,
+ * 요청에 대한 응답으로 컨트롤러 처리 후, MyView 생성자에 String만 넣어 반환
+ * 반환 받은 MyView에 render를 호출해서
+ * 기존 반복되던 화면 호출 코드를 실행
+ */
 @WebServlet(name="frontControllerServletv2", urlPatterns = "/front-controller/v2/*") //경로 하위에 뭐가있든 여기로옴
 public class FrontControllerServletv2 extends HttpServlet {
 
@@ -38,9 +44,6 @@ public class FrontControllerServletv2 extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
-
-
-
         MyView view = controller.process(request,response);
         view.render(request,response);
     }

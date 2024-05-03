@@ -13,6 +13,10 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 컨트롤러 마다 반복을 제거하기 위해 Interface를 두고 각 controller들은 해당 인터페이스를 구현.
+ * 프론트 컨트롤러에서는 url로 어떤 컨트롤러를 사용했는지 매핑
+ */
 @WebServlet(name="frontControllerServletv1", urlPatterns = "/front-controller/v1/*") //경로 하위에 뭐가있든 여기로옴
 public class FrontControllerServletv1 extends HttpServlet {
 
