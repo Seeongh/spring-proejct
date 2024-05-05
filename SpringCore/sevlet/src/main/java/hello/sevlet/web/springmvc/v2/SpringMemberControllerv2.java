@@ -11,6 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * RequestMapping 이 클래스 단위가 아닌 메서드 단위로 적용되어 하나로 통합
+ * 컨트롤러에 requestMapping 경로를 매핑하여 조합하여 사용도 가능
+ */
 @Controller
 @RequestMapping("/springmvc/v2/members")
 public class SpringMemberControllerv2 {

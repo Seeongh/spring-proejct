@@ -12,6 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * viewname 직접반환
+ * @RequestParam 사용
+ *  -> RequestParam("username") == request.getParameter("username")
+ * @RequestMapping -> @GetMapping, @PostMapping
+ */
 @Controller
 @RequestMapping("/springmvc/v3/members")
 public class SpringMemberControllerv3 {
