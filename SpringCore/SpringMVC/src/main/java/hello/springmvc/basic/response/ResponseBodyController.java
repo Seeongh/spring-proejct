@@ -13,6 +13,23 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * 응답 3가지 방식 1. 정적리소스 2.뷰템플리 3.HTTP 메세지
+ *
+ * http 메시지 컨버터
+ * JSON 데이터를 HTTP 메세지 바디에서 직접 읽고 씀
+ * 이경우, viewResolver가 아닌 HttpMessageConverter동작
+ * 이때 컨트롤러 반환 타입과 Accept헤더를 조합해서 선택됨
+ *
+ * [읽기]
+ * 1. canRead()로 읽을 수 있는지 확인 2. 대상 클래스 지원여부 확인, Content-Type 미디어 타입 지원 확인 3. read()호출해서 객체 생성, 반환
+ * [응답]
+ * 1. canWrite()로 쓸 수 있는지 확인 2. 대상 클래스 지원여부 확인,  Accept미디어 타입 지원 확인 3. write()호출해서 데이터 생성
+ *
+ * 이 HttpMessageConverter는 RequestMappingHnadlerAdapter에 있음
+ * 요청은 ArgumentResolver로 파라미터 처리 (이때 컨버터 참조)
+ * 응답은 ReturnValueHandler로 응답값 변환 처리 (이때 컨버터 참조)
+ */
 @Slf4j
 //@Controller //ResponseBody를 계속달아야함 class레벨에 REsponsebody로 붙이면 전체 메소드 리턴이 rESPONSEBODY가됨
 @RestController// controller + responsebody
