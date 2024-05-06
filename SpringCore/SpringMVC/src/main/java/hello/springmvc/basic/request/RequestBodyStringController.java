@@ -34,6 +34,11 @@ public class RequestBodyStringController {
 
     }
 
+    /*
+    InputStream(Reader) : HTTP 요청 메세지 바디 내용 조회
+    OutputStream(Writer) : HTTP 응답 메세지 바디 결과 출력
+     */
+
     @PostMapping("/reqeust-body-string-v2")
     public void requestBodyStringv2(InputStream inputStream, Writer responseWriter) throws IOException {
 
@@ -46,6 +51,13 @@ public class RequestBodyStringController {
     }
 
 
+    /**
+     * httpEntity : HTTP header, body 정보 조회
+     * StringHttpMessageConveter사용 (요청, 응답 모두 사용가능)
+     * @param httpEntity
+     * @return
+     * @throws IOException
+     */
     @PostMapping("/reqeust-body-string-v3")
     public HttpEntity<String> requestBodyStringv3(HttpEntity<String> httpEntity) throws IOException {
         //컨버터 두두등장
@@ -58,6 +70,12 @@ public class RequestBodyStringController {
 
     }
 
+    /**
+     * HttpEntity를 상속 받은 객체 RequestEntity, ResponseEntity
+     * @param httpEntity
+     * @return
+     * @throws IOException
+     */
 
     @PostMapping("/reqeust-body-string-v3_5")
     public HttpEntity<String> requestBodyStringv3_5(RequestEntity<String> httpEntity) throws IOException {
@@ -68,6 +86,13 @@ public class RequestBodyStringController {
 
     }
 
+    /**
+     * 요청 파라미터 조회 : @RequestParam, @ModelAttribute
+     *  메세지 바디 조회  :  @RequestBody
+     * @param body
+     * @return
+     * @throws IOException
+     */
     @ResponseBody
     @PostMapping("/reqeust-body-string-v4")
     public String requestBodyStringv4(@RequestBody String body) throws IOException {

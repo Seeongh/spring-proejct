@@ -21,7 +21,7 @@ public class RequestHeaderController {
                           HttpServletResponse response,
                           HttpMethod httpMethod,
                           Locale locale,
-                          @RequestHeader MultiValueMap<String, String> headerMap, //여러개
+                          @RequestHeader MultiValueMap<String, String> headerMap, //여러개 keyA=value1&keyA=value2
                           @RequestHeader("host") String host, //헤더를 하나만 받고싶을떄(필수헤더인 host)
                           @CookieValue(value="myCookie", required=false) String cookie
                           ){

@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Slf4j
 public class MappingController {
+
+    //메서드 지정을 안하면 get, post 모두 허용
     @RequestMapping("/hello-basic") //url이 오면 이 메서드와 매칭한다
     //@RequestMapping("/hello-basic", "/hello-basic2") //배열로 제공해서 배열도가능 url은 다르지만 그냥 인정하고 매핑해줌
     public String helloBasic() {
@@ -47,6 +49,7 @@ public class MappingController {
         return "ok";
     }
 
+    //다중 매핑
     @GetMapping("/mapping/users/{userId}/orders/{orderId}")
     public String mappingPath2(@PathVariable("userId")String data, @PathVariable long orderId) {
 
@@ -56,7 +59,7 @@ public class MappingController {
 
 
     /**
-     * parameter로 추가 매핑
+     * parameter로 추가 매핑 - 특정 파라미터가 있어야한다를 암시
      * params="mode",
      * params="!mode",
      * params="mode=debug"
@@ -78,14 +81,16 @@ public class MappingController {
      * params = {"mode=debug","data=good"}
      */
     //@GetMapping(value = "/mapping-header", headers= "mode=debug")
-    @PostMapping(value = "/mapping-consume", consumes="application/json") //type매핑
+    @PostMapping(value = "/mapping-consume", headers="application/json") //type매핑
     public String mappingHeader() {
         log.info("mappingHeader");
         return "ok";
     }
 
     /**
-     * Accept 헤더기반 Media Type
+     * consumes=  Media Type(Contenttype) ex. application/json
+     * produces = accept헤더기반 Mediatype
+     *
      * produces = "text/html"
      * produces = "!text/html"
      * produces= "text/*"

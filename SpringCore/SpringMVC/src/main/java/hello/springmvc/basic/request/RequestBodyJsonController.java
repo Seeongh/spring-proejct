@@ -40,6 +40,12 @@ public class RequestBodyJsonController {
         response.getWriter().write("ok");
     }
 
+    /**
+     * HttpMessageConverter사용(StringHttpMessageConverter)
+     * @param messagebody
+     * @return
+     * @throws IOException
+     */
     @ResponseBody
     @PostMapping("/request-body-json-v2")
     public String requestBodyJsonv2(@RequestBody String messagebody) throws IOException {
@@ -51,7 +57,11 @@ public class RequestBodyJsonController {
         return "ok";
     }
 
-
+    /**
+     * HttpMessageConverter -> MappingJackson2HttpMessageConverter 적용
+     * @param helloData
+     * @return
+     */
     @ResponseBody
     @PostMapping("/request-body-json-v3")
     public String requestBodyJsonv3(@RequestBody HelloData helloData) {
