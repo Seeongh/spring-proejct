@@ -9,6 +9,10 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * 정책 변경 
+ * OrderServiceImpl 코드가 DiscountPolicy 구현체에 의존함
+ */
 class RateDiscountPolicyTest {
 
     RateDiscountPolicy discountPolicy = new RateDiscountPolicy();
