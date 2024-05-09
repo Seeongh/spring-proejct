@@ -10,8 +10,15 @@ public class MemberServiceImpl implements MemberService{
     //의존관계 주입을 autowired로 해줌
     //memberRepository 를 찾아와서 주입을 해줌
 
+    //1. private final MemberRepository memberRepository = new MemoryMemberRepository(); //구체에 의존
     private final MemberRepository memberRepository;
 
+    /**
+     * 아래 코드는 AppConfig에서 생성 후 주입해주기 때문에 만들음.
+     * MemberRepository 만 의존하고 상세 구현체는 의존하지 않음
+     * 어떤 객체가 들어올지 알 수 없음
+     * @param memberRepository
+     */
     @Autowired
     public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;

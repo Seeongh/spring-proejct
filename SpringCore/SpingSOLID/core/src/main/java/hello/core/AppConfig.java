@@ -36,7 +36,7 @@ public class AppConfig {
         //serviceimpl엔 interface에만 의존하고있음
         //여기서 생성해서 넣어주기 때문에
         // 생성자 주입.
-        System.out.println("AppConfig.memberService");
+        Sysrnttem.out.println("AppConfig.memberService");
         return new MemberServiceImpl(memberRepository());
     }
     @Bean

@@ -21,12 +21,20 @@ public class OrderServiceImpl implements OrderService{
 //    @Autowired private DiscountPolicy discountPolicy;
 
 
-//    private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
-    //할인정책의 변경으로 다른 정책을 사용해야함
- //   private final DiscountPolicy discountPolicy = new RateDiscountPolicy();
+    /**
+     * 구현체에 의존 - 정책 변경시 클라이언트인 OrderServiceImpl을 수정해야함
+     * DIP(추상에 의존), OCP(변경에 닫혀있음) 위반*/
+    //    private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
+     //할인정책의 변경으로 다른 정책을 사용해야함
+    //   private final DiscountPolicy discountPolicy = new RateDiscountPolicy();
 
     //위으 코드는 DIP, OCP 위반으로 추상화에 의존하도록 코드를 변경한다.
-
+    /**
+     * private DiscountPolicy discountPoilicy 만 놓고, 실행시 NullPointException 발생.
+     * 외부에서 구현체를 생성하고 주입
+     *
+     * -> AppConfig 등장
+     */
     private final MemberRepository memberRepository; //final - 생성자에서만 값을 셋팅할 수 있다. 컴파일때 잡을 수있다.
     private  final DiscountPolicy discountPolicy;
 
