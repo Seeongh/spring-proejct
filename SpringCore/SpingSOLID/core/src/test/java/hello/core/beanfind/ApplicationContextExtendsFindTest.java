@@ -17,6 +17,11 @@ import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
+/**
+ * 빈 - 상속 관계 조회
+ * : 부모 타입으로 조회시 자식 타입도 함께 조회됨
+ */
+
 public class ApplicationContextExtendsFindTest {
 
 

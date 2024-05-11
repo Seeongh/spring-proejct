@@ -2,6 +2,9 @@ package hello.core.singleton;
 
 import org.junit.Test;
 
+/**
+ * 싱글톤 패터이기때문에 statefull하면 안된다.
+ */
 public class StatefulService {
 
     private int price; //상태를 유지하는 필드

@@ -12,6 +12,15 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * 빈 이름 조회
+ * getBean(이름), getBean(이름, 구체 타입), getBean(구체타입)
+ * 구체타입으로 조회하면 변경 시 유연성 떨어짐
+ *
+ * BeanFactory : 스프링 빈을 관리하고 조회, getBean 제공
+ * ApplicationContext :  BeanFactory 기능 상속 받아 제공
+ *  + 메세지 소스국제화, 환경변수, 이벤트, 리소스 조회 등등
+ */
 public class ApplicationContextBasicFindTest {
     AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
 

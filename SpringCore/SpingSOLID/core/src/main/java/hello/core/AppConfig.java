@@ -10,7 +10,12 @@ import hello.core.order.OrderService;
 import hello.core.order.OrderServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
+/**
+ * 스프링 컨테이너의 생성
+ * 파라미터로 넘어온 설정 클래스 정보를 사용해 스프링 빈 등록
+ * 빈을 생성하고 의존 관계를 주입하는 단계가 나뉨
+ *
+ */
 @Configuration //설정, 구성정보다.
 public class AppConfig {
 //-app 환경구성에대해 역할에 대한 구현을 지정해줌

@@ -16,6 +16,9 @@ import java.util.Map;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * 빈 이름 조회 : 동일 타입 2개이상
+ */
 public class ApplicationContextSameBeanFindTest {
     AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(SameBeanConfig.class);
 
@@ -46,6 +49,9 @@ public class ApplicationContextSameBeanFindTest {
          assertThat(beansOfType.size()).isEqualTo(2);
     }
 
+    /**
+     * 타입이 같은 두가지 빈
+     */
     @Configuration
     public static class SameBeanConfig {// class안의 static은 이 scope안에서만 쓰겠다
         //빈이름은 다르고 type은 비슷함
