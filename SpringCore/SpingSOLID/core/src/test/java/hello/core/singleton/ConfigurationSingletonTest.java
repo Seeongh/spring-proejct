@@ -10,6 +10,14 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import static org.assertj.core.api.Assertions.*;
 
+/**
+ * AppConfig.class라는 순수한 클래스가 스프링 빈으로 전달되었음에도
+ * 출력시 EnhancerBySpringCGLIB가 출력됨(바이트 코드 조작 라이브러리를 통해 AppConfig 상속받아 스프링빈으로 등록
+ * 이 클래스에서 싱글톤 보장
+ *
+ * @Configuration 등록시 싱글톤 보장하지만
+ * @Bean 등록시 싱글톤 보장안됨
+ */
 public class ConfigurationSingletonTest {
 
     @Test
