@@ -11,6 +11,11 @@ import org.springframework.stereotype.Component;
 
 import static org.springframework.context.annotation.ComponentScan.*;
 
+/**
+ * includeFilters에 추가된 Component애노테이션은 빈에 등록되고
+ * excludeFilters에 추가된 Component애노테이션은 빈에 등록되지 않음
+ */
+
 public class ComponentFilterAppConfigTest {
     @Test
     public void filterScan() {

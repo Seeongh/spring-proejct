@@ -7,6 +7,16 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 
+/**
+ * 컴포넌트 스캔
+ * Bean 으로 등록한 클래스 없음
+ * Member, Order, Discount 등 @Component 애노테이션을 붙여 스캔의 대상이 됨
+ *
+ * 컴포넌트 스캔을 통해
+ * controller : mvc컨트롤러 인식 service: 개발자들이 비즈니스 계층 인식 도움
+ * Repository : 스프링 데이터 접근 계층으로 인식하고, 예외를 스프링 예외로 변환
+ * Configuration : 설정 정보로 인식, 싱글톤 유지
+ */
 @Configuration
 @ComponentScan( //스프링빈을 끌어서 자동으로 끌어올림 , @component 붙은애들을 다 bean으로 등록해줌
         basePackages = "hello.core", //어디부터 스캔할지 지정, 하위는 다 탐색함. 시작 class도 지정가능,

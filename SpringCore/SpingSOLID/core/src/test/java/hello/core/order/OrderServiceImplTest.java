@@ -8,6 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * 생성자 주입을 선택해야하는 이유
+ * 1. 필드 주입의 경우 순수한 자바 테스트 코드에서 동작이 안된다. 
+ */
 class OrderServiceImplTest {
     //순수한 자바로만 텐스트
 
