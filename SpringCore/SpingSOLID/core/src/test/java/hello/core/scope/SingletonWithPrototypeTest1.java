@@ -13,6 +13,15 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Provider;
 
+/**
+ * 프로토 타입 스코프 + 싱글톤 빈 사용
+ * Provider
+ * : 싱글톤 빈이 프로토 타입을 사용할 때마다 스프링 컨테이너에 새로 요청
+ *
+ * login() : 필요할때마다 getBean(직접 찾는걸 DependecyLookup 이라함)
+ * -> 테스트시 종속적이라 어려움
+ * -> 개선을 위해 OjbectProvider 제공
+ */
 public class SingletonWithPrototypeTest1 {
     @Test
     void prototypeFind() {
