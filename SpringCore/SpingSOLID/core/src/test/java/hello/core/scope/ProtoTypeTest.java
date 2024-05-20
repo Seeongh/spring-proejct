@@ -10,6 +10,13 @@ import javax.annotation.PreDestroy;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * 프록시 타입 빈은 생성, 의존관계 주입, 초기화만 담당함
+ * : 항상 새로운 인스턴스를 생성(조회시!)
+ *
+ * 싱글톤 클래스가 프로토 타입을 주입받는 경우
+ * : 과거에 주입끝난 빈이라서 주입시 생성되지 사용시 생성되지 않는다
+ */
 public class ProtoTypeTest {
 
     @Test
