@@ -2,6 +2,7 @@ package hello.jdbc.service;
 
 import hello.jdbc.domain.Member;
 import hello.jdbc.repository.MemberRepositoryV1;
+import hello.jdbc.repository.MemberRepositoryV2;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,23 +13,22 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import static hello.jdbc.connection.ConnectionConst.*;
 
 /**
- * 기본 동작
- * transaction이 없어서 에러 발생
+ * 트랜잭션 , 커넥션을 파라미터로 전달해서 동일한 연결을 쓰도록 함
  */
-public class MemberServiceV1Test {
+public class MemberServiceV2Test {
 
     public static final String MEMBER_A = "memberA";
     public static final String MEMBER_B = "memberB";
     public static final String MEMBER_EX = "ex";
 
-    private MemberRepositoryV1 memberRepository;
-    private MemberServiceV1 memberService;
+    private MemberRepositoryV2 memberRepository;
+    private MemberServiceV2 memberService;
 
     @BeforeEach
     void before() {
         DriverManagerDataSource datasource = new DriverManagerDataSource(URL, USERNAME, PASSWORD);
-        memberRepository = new MemberRepositoryV1(datasource);
-        memberService = new MemberServiceV1(memberRepository);
+        memberRepository = new MemberRepositoryV2(datasource);
+        memberService = new MemberServiceV2(datasource, memberRepository);
     }
 
     //끝날때 호출 - 리소스 제거
@@ -47,10 +47,12 @@ public class MemberServiceV1Test {
         Member memberA = new Member(MEMBER_A, 10000);
         Member memberB = new Member(MEMBER_B, 10000);
 
+        //각자 다른 커넥션
         memberRepository.save(memberA);
         memberRepository.save(memberB);
 
         //when
+        //같은 커넥션
         memberService.accountTransfer(memberA.getMemberId(), memberB.getMemberId(), 2000);
         //then
         Member findMemberA = memberRepository.findById(memberA.getMemberId());

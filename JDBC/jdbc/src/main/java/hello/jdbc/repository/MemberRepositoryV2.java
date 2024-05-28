@@ -1,6 +1,5 @@
 package hello.jdbc.repository;
 
-import hello.jdbc.connection.DBConnectionUtil;
 import hello.jdbc.domain.Member;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.support.JdbcUtils;
@@ -10,14 +9,14 @@ import java.sql.*;
 import java.util.NoSuchElementException;
 
 /**
- * jdbc - dataSource, jdbcutils사용
+ * JDBC- Conncetion Param : 같은 커넥션을 유지하려고 파라미터에 같은 커넥션을 파람으로 넣어줌
  */
 @Slf4j
-public class MemberRepositoryV1 {
+public class MemberRepositoryV2 {
 
     private final DataSource dataSource;
 
-    public MemberRepositoryV1(DataSource dataSource) {
+    public MemberRepositoryV2(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
@@ -87,6 +86,42 @@ public class MemberRepositoryV1 {
         return member;
     }
 
+    public Member findById(Connection con, String memberId) { //같은 connection을 사용해야함
+        String sql = "select * from member where member_id = ?";
+
+
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        Member member = new Member();
+
+        try {
+            //con = getConnect(); //새로운 커넥션으로 여기서는 삭제해줌
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, memberId);
+
+            rs = pstmt.executeQuery();
+            if(rs.next()) {
+
+                member.setMemberId(rs.getString("member_id"));
+                member.setMoney(rs.getInt("money"));
+                return member;
+
+            }
+            else {
+                throw new NoSuchElementException("member not found memberId="+memberId);
+            }
+        } catch (SQLException e) {
+            log.error("db error", e) ;
+        }
+        finally{
+            JdbcUtils.closeResultSet(rs);
+            //JdbcUtils.closeConnection(con); //이 커넥션은 닫으면 안됨. SERVICE에서 시작해서 넘겨줄거니까
+            JdbcUtils.closeStatement(pstmt);
+        }
+
+        return member;
+    }
+
     public void update(String memberId, int money) {
         String sql = "update member set money=? where member_id = ?";
 
@@ -109,6 +144,27 @@ public class MemberRepositoryV1 {
 
     }
 
+    public void update(Connection con, String memberId, int money) {
+        String sql = "update member set money=? where member_id = ?";
+
+
+        PreparedStatement pstmt = null;
+
+        try{
+            pstmt = con.prepareStatement(sql) ;
+            pstmt.setInt(1, money);
+            pstmt.setString(2, memberId);
+            int resultSize = pstmt.executeUpdate();
+            log.info("resultSize={}", resultSize);
+        }catch (SQLException e) {
+            log.error("db error", e) ;
+        }
+        finally{
+            //JdbcUtils.closeConnection(con); //이 커넥션은 닫으면 안됨. SERVICE에서 시작해서 넘겨줄거니까
+            JdbcUtils.closeStatement(pstmt);
+        }
+
+    }
     public void delete(String memberId) {
         String sql = "delete from Member where member_Id = ?";
 
