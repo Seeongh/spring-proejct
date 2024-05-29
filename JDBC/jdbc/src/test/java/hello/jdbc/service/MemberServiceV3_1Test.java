@@ -1,34 +1,38 @@
 package hello.jdbc.service;
 
 import hello.jdbc.domain.Member;
-import hello.jdbc.repository.MemberRepositoryV1;
 import hello.jdbc.repository.MemberRepositoryV2;
+import hello.jdbc.repository.MemberRepositoryV3;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.transaction.PlatformTransactionManager;
 
 import static hello.jdbc.connection.ConnectionConst.*;
 
 /**
- * 트랜잭션 , 커넥션을 파라미터로 전달해서 동일한 연결을 쓰도록 함
+ * 트랜잭션매니저를 통해 커넥션을 유지
  */
-public class MemberServiceV2Test {
+public class MemberServiceV3_1Test {
 
     public static final String MEMBER_A = "memberA";
     public static final String MEMBER_B = "memberB";
     public static final String MEMBER_EX = "ex";
 
-    private MemberRepositoryV2 memberRepository;
-    private MemberServiceV2 memberService;
+    private MemberRepositoryV3 memberRepository;
+    private MemberServiceV3_1 memberService;
 
     @BeforeEach
     void before() {
         DriverManagerDataSource datasource = new DriverManagerDataSource(URL, USERNAME, PASSWORD);
-        memberRepository = new MemberRepositoryV2(datasource);
-        memberService = new MemberServiceV2(datasource, memberRepository);
+        memberRepository = new MemberRepositoryV3(datasource);
+
+        PlatformTransactionManager transactionManager = new DataSourceTransactionManager();
+        memberService = new MemberServiceV3_1(transactionManager , memberRepository);
     }
 
     //끝날때 호출 - 리소스 제거
