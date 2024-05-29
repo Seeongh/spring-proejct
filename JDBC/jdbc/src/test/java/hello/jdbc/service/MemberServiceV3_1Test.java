@@ -31,7 +31,7 @@ public class MemberServiceV3_1Test {
         DriverManagerDataSource datasource = new DriverManagerDataSource(URL, USERNAME, PASSWORD);
         memberRepository = new MemberRepositoryV3(datasource);
 
-        PlatformTransactionManager transactionManager = new DataSourceTransactionManager();
+        PlatformTransactionManager transactionManager = new DataSourceTransactionManager(datasource);
         memberService = new MemberServiceV3_1(transactionManager , memberRepository);
     }
 
