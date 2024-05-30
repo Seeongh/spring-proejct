@@ -35,7 +35,7 @@ public class MemberServiceV3_2 {
 
         //트랜잭션 템플릿이 트랜잭션매니저를 감싸고있음
         //템플릿이 패턴을 다 가지고 있음.
-        
+
         txTemplate.executeWithoutResult((status) -> {bizLogic( fromId, toId, money);} );
 //        //트랜잭션 시작
 //        //STATUS (상태정보)
