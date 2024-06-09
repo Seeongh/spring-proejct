@@ -4,8 +4,6 @@ import hello.jdbc.domain.Member;
 import hello.jdbc.repository.MemberRepositoryV3;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.aop.support.AopUtils;
@@ -22,11 +20,11 @@ import javax.sql.DataSource;
 import static hello.jdbc.connection.ConnectionConst.*;
 
 /**
- * Transactional
+ * Transactional - Spring boot 자동 등록
  */
 @Slf4j
 @SpringBootTest //테스트 돌릴떄 Spring boot Test 연동되어있어서 Spring은 띄워서 빈 등록하고, 주입
-public class MemberServiceV3_3Test {
+public class MemberServiceV3_4Test {
 
     public static final String MEMBER_A = "memberA";
     public static final String MEMBER_B = "memberB";
@@ -39,19 +37,24 @@ public class MemberServiceV3_3Test {
 
     @TestConfiguration //사용하려는 객체들을 빈으로 설정해줌
     static class TestConfig {
-        @Bean
-        DataSource dataSource() {
-            return new DriverManagerDataSource(URL, USERNAME, PASSWORD);
-        }
+//        @Bean
+//        DataSource dataSource() {
+//            return new DriverManagerDataSource(URL, USERNAME, PASSWORD);
+//        }
+//
+//        @Bean
+//        PlatformTransactionManager transactionManager() {
+//            return new DataSourceTransactionManager(dataSource()); //스프링 빈에 등록된 빈을 찾아서 써야함
+//        }
 
-        @Bean
-        PlatformTransactionManager transactionManager() {
-            return new DataSourceTransactionManager(dataSource()); //스프링 빈에 등록된 빈을 찾아서 써야함
-        }
+        private final DataSource dataSource;
 
+        TestConfig(DataSource dataSource) {
+            this.dataSource = dataSource;
+        }
         @Bean
         MemberRepositoryV3 memberRepositoryV3() {
-            return new MemberRepositoryV3(dataSource());
+            return new MemberRepositoryV3(dataSource);
         }
 
         @Bean
