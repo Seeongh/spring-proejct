@@ -1,6 +1,7 @@
 package hello.jdbc.exception.translator;
 
 import hello.jdbc.domain.Member;
+import hello.jdbc.repository.ex.MyDbException;
 import hello.jdbc.repository.ex.MyDuplicationKeyException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,11 +11,38 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Random;
 
 @Slf4j
 
 public class ExTranslatorV1Test {
 
+    @Slf4j
+    @RequiredArgsConstructor
+    static class Service {
+        private final Repository repository;
+
+        public void create(String memberId) {
+            //멤버아이디가 중복되면 캐치로 잡음
+            try{
+
+                repository.save(new Member(memberId, 0));
+                log.info("saveId{}", memberId);
+            } catch(MyDuplicationKeyException e) {
+                log.info("키 중복, 복구 시도");
+                String retryId = generateNewId(memberId);
+                log.info(" retryId = {}", retryId) ;
+                repository.save(new Member(retryId, 0));
+            } catch (MyDbException e) {
+                log.info("데이터 접근 계층 예외 ", e);
+                throw e;
+            }
+        }
+
+        private String generateNewId(String memberId) {
+            return memberId + new Random().nextInt();
+        }
+    }
     @RequiredArgsConstructor
     static class Repository {
         private final DataSource dataSource;
