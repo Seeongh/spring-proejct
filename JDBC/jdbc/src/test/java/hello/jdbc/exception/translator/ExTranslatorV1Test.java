@@ -1,10 +1,14 @@
 package hello.jdbc.exception.translator;
 
+import hello.jdbc.connection.ConnectionConst;
 import hello.jdbc.domain.Member;
 import hello.jdbc.repository.ex.MyDbException;
 import hello.jdbc.repository.ex.MyDuplicationKeyException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.support.JdbcUtils;
 
 import javax.sql.DataSource;
@@ -17,6 +21,27 @@ import java.util.Random;
 
 public class ExTranslatorV1Test {
 
+    Repository repository;
+    Service service;
+
+    @BeforeEach
+     void init() {
+        DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource(ConnectionConst.URL, ConnectionConst.USERNAME, ConnectionConst.PASSWORD);
+        repository = new Repository(driverManagerDataSource);
+        service = new Service(repository);
+    }
+
+    @Test
+    public void duplicateKeysave() throws Exception {
+
+        //given
+        service.create("myId");
+        service.create("myId");//같은 id
+        //when
+
+        //then
+
+     }
     @Slf4j
     @RequiredArgsConstructor
     static class Service {
@@ -64,6 +89,7 @@ public class ExTranslatorV1Test {
                 if(e.getErrorCode() == 23505) {
                     throw new MyDuplicationKeyException(e);
                 }
+                throw new MyDbException(e);
             }finally {
                 JdbcUtils.closeStatement(pstmt);
                 JdbcUtils.closeConnection(con);
