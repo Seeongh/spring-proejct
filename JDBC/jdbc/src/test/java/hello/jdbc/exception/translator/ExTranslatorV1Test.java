@@ -86,6 +86,8 @@ public class ExTranslatorV1Test {
                 return member;
             }catch (SQLException e) {
                 //sqlexception 밖으로 안보냄
+                //errorcode는 db마다 다다름
+                //spring에서는 스프링이 제공하는 예외를 사용하도록 exception을 추상화함
                 if(e.getErrorCode() == 23505) {
                     throw new MyDuplicationKeyException(e);
                 }
