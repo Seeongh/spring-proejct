@@ -17,8 +17,13 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Random;
 
+/**
+ * 예외 추상화 전단계 
+ * 1. DataAccessException은 nonTransient/ transient로 구분
+ * -> nontransient : 일시적이지 않아 그대로 반복시 실패
+ * -> transient: 일시적오류 ex. lock으로 동일한 시도시 성공가능성 높음
+ */
 @Slf4j
-
 public class ExTranslatorV1Test {
 
     Repository repository;
