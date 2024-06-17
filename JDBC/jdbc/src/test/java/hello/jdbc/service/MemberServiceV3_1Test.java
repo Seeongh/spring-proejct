@@ -38,9 +38,9 @@ public class MemberServiceV3_1Test {
     //끝날때 호출 - 리소스 제거
     @AfterEach
     void after() {
-        memberRepository.delete(MEMBER_A);
-        memberRepository.delete(MEMBER_B);
-        memberRepository.delete(MEMBER_EX);
+       // memberRepository.delete(MEMBER_A);
+       // memberRepository.delete(MEMBER_B);
+       // memberRepository.delete(MEMBER_EX);
 
     }
 
