@@ -48,7 +48,7 @@ public class SpringExceptionTranslatorTest {
         }
      }
 
-     @Test
+     @ Test
     void exceptionTranslator() {
         String sql = "select bad grammer";
 
