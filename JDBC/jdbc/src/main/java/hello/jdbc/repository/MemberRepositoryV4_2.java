@@ -42,16 +42,15 @@ public class MemberRepositoryV4_2 implements MemberRepository{
             pstmt.executeUpdate();
             return member;
         }catch(SQLException e) {
-            throw exTranslator.translate("save". sql, e);
-            log.error("db error", e);
-            throw new MyDbException(e);
+            throw exTranslator.translate("save", sql, e);
+//            log.error("db error", e);
+//            throw new MyDbException(e);
             //throw e;
         }
         finally {
 
         }
 
-        return member;
     }
 
     @Override
