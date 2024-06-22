@@ -96,7 +96,7 @@ public class ExTranslatorV1Test {
                 if(e.getErrorCode() == 23505) {
                     throw new MyDuplicationKeyException(e);
                 }
-                throw new MyDbException(e);
+                throw new MyDbException(e); //복구할 수 없는 부분은 예외를 던진다.
             }finally {
                 JdbcUtils.closeStatement(pstmt);
                 JdbcUtils.closeConnection(con);

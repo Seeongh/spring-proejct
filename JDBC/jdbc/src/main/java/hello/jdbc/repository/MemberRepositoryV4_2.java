@@ -48,7 +48,7 @@ public class MemberRepositoryV4_2 implements MemberRepository{
             //throw e;
         }
         finally {
-
+          //  close(con, pstmt,null);
         }
 
     }

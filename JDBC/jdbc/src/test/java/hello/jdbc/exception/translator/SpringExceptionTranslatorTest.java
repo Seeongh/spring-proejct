@@ -45,10 +45,14 @@ public class SpringExceptionTranslatorTest {
            // throw new BadSqlGrammarException(e);
             int errorCode= e.getErrorCode();
             log.info("errorCode= {}", errorCode);
+            log.info("error", e);
         }
      }
 
-     @ Test
+    /**
+     * 스프링 예외 변환기
+     */
+    @ Test
     void exceptionTranslator() {
         String sql = "select bad grammer";
 
@@ -58,7 +62,11 @@ public class SpringExceptionTranslatorTest {
             stmt.executeUpdate();
         } catch (SQLException e) {
             Assertions.assertThat(e.getErrorCode()).isEqualTo(42122);
+
             SQLErrorCodeSQLExceptionTranslator exTranslator = new SQLErrorCodeSQLExceptionTranslator(dataSource);
+            //파라미터로 읽을수 있는 설명, 작성한 sql, 에러를 전달.
+            //-> 적절한 스프링 데이터 접근 계층예외로 변환해줌
+            //sql-error-codes.xml
             DataAccessException resultEx = exTranslator.translate("select", sql, e);
             log.info("resultEx" , resultEx);
             Assertions.assertThat(resultEx.getClass()).isEqualTo(BadSqlGrammarException.class);
