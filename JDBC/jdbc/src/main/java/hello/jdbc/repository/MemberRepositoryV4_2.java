@@ -14,6 +14,7 @@ import java.sql.SQLException;
 /**
  * SQL Exception translator 추가
  *
+ * - 이 반복들을 추후 템플릿 패턴으로 해결함 *
  */
 
 @Slf4j
