@@ -18,6 +18,13 @@ import java.sql.SQLException;
  * - 이 반복들을 추후 템플릿 패턴으로 해결함 *
  * 트랜잭션, 예외 변환기까지 자동 적용되어있음.
  * 변하는 매퍼, sql등만 변경해줌
+ *
+ */
+
+/**
+ * 정리 : 언체크 예외 -> 커스텀 -> 예외 복구 ->
+ * -> db마다 다른 에러코드 추상화(DataAccessException)
+ * -> jdbcTemplate으로 중복 문제 해결
  */
 
 @Slf4j
