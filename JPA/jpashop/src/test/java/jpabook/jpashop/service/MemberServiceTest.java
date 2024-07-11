@@ -31,8 +31,8 @@ public class MemberServiceTest {
     @Autowired
     EntityManager em;
 
-    @Test
     //@Rollback(false)   //spring transition은 rollback을 해버림 -> test때 rollback막아야 결과 볼 수 있음
+    @Test
     public void 회원가입() throws Exception {
         //given
         Member member = new Member();

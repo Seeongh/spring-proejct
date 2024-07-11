@@ -1,5 +1,6 @@
 package jpabook.jpashop.service;
 
+import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.domain.TestMember;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -58,5 +60,28 @@ public class JPATest {
 
         return member;
     }
+
+    @Test
+    @Transactional  //transaction 종료이후에 롤백
+    public void updateTest() throws Exception {
+        //given
+        Long id= 1L;
+        Member member = new Member();
+
+        member.setId(id);
+        member.setName("사람");
+
+        em.persist(member);
+
+        //when
+        member.setName("변경");
+        Member findMem = em.find(Member.class, id);
+        System.out.println("findMem member name = "+ findMem.getName());
+
+        //JPQL : 엔티티 객체(클래스)를 대상으로 쿼리
+        TypedQuery<Member> query = em.createQuery("select m from Member m " , Member.class);
+        List<Member> members = query.getResultList();
+
+     }
 }
 
