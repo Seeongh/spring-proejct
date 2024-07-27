@@ -34,6 +34,8 @@ public class SimpleJobConfiguration {
     public Job simpleJob(JobRepository jobRepository) {
         return new JobBuilder("simpleJob", jobRepository) //simpleJob 생성, 명시적으로 jobRepository 적용
                 .start(simpleStep1(jobRepository, transactionManager))
+                .next(simpleStep2(jobRepository, transactionManager))
+                .next(simpleStep3(jobRepository, transactionManager))
                 .build();
     }
     @Bean
@@ -42,6 +44,28 @@ public class SimpleJobConfiguration {
         return new StepBuilder("simpleStep1", jobRepository) //simple step1 생성,
                 .tasklet((contribution, chunkContext) -> { //step안에 수행될 기능
                     log.info(">>>>>>> This is step1");
+                    return RepeatStatus.FINISHED;
+                }, transactionManager)
+                .build();
+    }
+
+    @Bean
+    public Step simpleStep2(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
+
+        return new StepBuilder("simpleStep2", jobRepository) //simple step1 생성,
+                .tasklet((contribution, chunkContext) -> { //step안에 수행될 기능
+                    log.info(">>>>>>> This is step2");
+                    return RepeatStatus.FINISHED;
+                }, transactionManager)
+                .build();
+    }
+
+    @Bean
+    public Step simpleStep3(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
+
+        return new StepBuilder("simpleStep3", jobRepository) //simple step1 생성,
+                .tasklet((contribution, chunkContext) -> { //step안에 수행될 기능
+                    log.info(">>>>>>> This is step3");
                     return RepeatStatus.FINISHED;
                 }, transactionManager)
                 .build();
