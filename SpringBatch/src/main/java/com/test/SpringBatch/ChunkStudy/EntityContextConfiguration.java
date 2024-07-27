@@ -29,7 +29,6 @@ public class EntityContextConfiguration {
     public static final String JOB_NAME = "entityContextJob";
     private static final String STEP_NAME = "entityContextStep";
 
-
     private EntityManagerFactory entityManagerFactory;
 
     @Bean

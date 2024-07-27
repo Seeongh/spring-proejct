@@ -15,6 +15,11 @@ spring:
       hibernate:
         #show_sql: true #System.out.pringln?? ??
         format_sql: true
+  batch:
+    job:
+      names: simpleJob
+    jdbc:
+      initialize-schema: always
 
 logging:
   level:
