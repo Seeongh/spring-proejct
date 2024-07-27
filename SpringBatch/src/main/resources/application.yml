@@ -17,7 +17,7 @@ spring:
         format_sql: true
   batch:
     job:
-      name: stepNextConditionalJob
+      name: deciderJob
     jdbc:
       initialize-schema: always
 
