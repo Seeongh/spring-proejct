@@ -24,7 +24,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
 @SpringBatchTest
-@SpringBootTest(classes = {BatchTestConfig.class})
+@SpringBootTest(classes = {EntityContextConfiguration.class})
 @TestPropertySource(properties = {"job.name=" + EntityContextConfiguration.JOB_NAME})
 public class EntityContextTest {
 

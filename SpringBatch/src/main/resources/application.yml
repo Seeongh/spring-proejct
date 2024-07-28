@@ -17,7 +17,7 @@ spring:
         format_sql: true
   batch:
     job:
-      name: deciderJob
+      name: entityContextJob
     jdbc:
       initialize-schema: always
 

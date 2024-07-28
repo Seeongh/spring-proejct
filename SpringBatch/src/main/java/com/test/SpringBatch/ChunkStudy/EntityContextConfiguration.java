@@ -24,7 +24,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 @Slf4j
 @Configuration
-@ConditionalOnProperty(name =" job.name", havingValue = EntityContextConfiguration.JOB_NAME)
+@ConditionalOnProperty(name ="job.names", havingValue = EntityContextConfiguration.JOB_NAME)
 public class EntityContextConfiguration {
     public static final String JOB_NAME = "entityContextJob";
     private static final String STEP_NAME = "entityContextStep";
@@ -32,12 +32,12 @@ public class EntityContextConfiguration {
     private EntityManagerFactory entityManagerFactory;
 
     @Bean
-    public Job job(JobRepository jobRepository, Step step) {
-        return new JobBuilder(STEP_NAME, jobRepository)
+    public Job entityContextJob(JobRepository jobRepository, Step step) {
+        return new JobBuilder(JOB_NAME, jobRepository)
                 .start(step)
                 .build();
     }
-    @Bean
+
     private Step step(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
 
         return new StepBuilder(STEP_NAME, jobRepository)
