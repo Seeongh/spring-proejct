@@ -4,39 +4,29 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import org.springframework.boot.autoconfigure.web.WebProperties;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
-@ToString
 @Getter
-@Setter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Pay {
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-mm-dd hh:mm:ss");
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long amount;
-    private String txName;
-    private LocalDateTime txDateTime;
 
-    public Pay(Long amount, String txName, LocalDateTime txDateTime) {
+    private Long amount;
+    private boolean successStatus;
+
+    public Pay(Long amount, boolean successStatus) {
         this.amount = amount;
-        this.txName = txName;
-        this.txDateTime = txDateTime;
+        this.successStatus = successStatus;
     }
 
-    public Pay(Long id, Long amount, String txName, LocalDateTime txDateTime) {
-        this.id = id;
-        this.amount = amount;
-        this.txName = txName;
-        this.txDateTime = txDateTime;
+    public void success() {
+        this.successStatus = true;
     }
 }

@@ -1,6 +1,7 @@
 package com.test.SpringBatch.ChunkOriented;
 
 import com.test.SpringBatch.ChunkOriented.domain.Pay_origin;
+import jakarta.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -8,8 +9,10 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
+import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.JdbcPagingItemReader;
+import org.springframework.batch.item.database.JpaItemWriter;
 import org.springframework.batch.item.database.Order;
 import org.springframework.batch.item.database.PagingQueryProvider;
 import org.springframework.batch.item.database.builder.JdbcPagingItemReaderBuilder;
@@ -23,19 +26,14 @@ import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * cursor, paging 두개의 reader타입 중 paging 방식
- * 페이지 단위로 한번에 데이터를 조회해옴(설정한 페이지 단위로 connec을 맺고 끊어 부하가 적다)
- */
-
 @Slf4j
 @RequiredArgsConstructor
 @Configuration
-public class JdbcPagingItemReaderJobConfiguration {
-
+public class JdbcBatchItemWriterJobConfiguration {
     private final PlatformTransactionManager transactionManager;
 
     private final DataSource dataSource; // DataSource DI
+    private final EntityManagerFactory entityManagerFactory;
     private static final int chunkSize = 10;
     /**
      * Job Repository
@@ -44,23 +42,24 @@ public class JdbcPagingItemReaderJobConfiguration {
      * 모니터링 : 실행 값 및 진행 파악
      */
     @Bean
-    public Job jdbcPagingItemReaderJob(JobRepository jobRepository) throws Exception {
-        return new JobBuilder("jdbcPagingItemReaderJob", jobRepository) //simpleJob 생성, 명시적으로 jobRepository 적용
-                .start(jdbcPagingItemReaderStep(jobRepository, transactionManager))
+    public Job jdbcBatchItemWriterJob(JobRepository jobRepository) throws Exception {
+        return new JobBuilder("jdbcBatchItemWriterJob", jobRepository)
+                .start(jdbcBatchItemWriterStep(jobRepository, transactionManager))
                 .build();
     }
     @Bean
-    public Step jdbcPagingItemReaderStep(JobRepository jobRepository, PlatformTransactionManager transactionManager) throws Exception {
+    public Step jdbcBatchItemWriterStep(JobRepository jobRepository, PlatformTransactionManager transactionManager) throws Exception {
 
-        return new StepBuilder("jdbcPagingItemReaderStep", jobRepository) //simple step1 생성,
+        return new StepBuilder("jdbcBatchItemWriterStep", jobRepository) //simple step1 생성,
                 .<Pay_origin, Pay_origin>chunk(chunkSize, transactionManager) //Reader에서 반환할 타입, Writer에 파라미터로 넘어올 타입
-                .reader(jdbcPagingItemReader())
-                .writer(jdbcPagingItemWriter())
+                .reader(jdbcBatchItemWriterReader())
+                .processor(jpaItemProcessor())
+                .writer(jdbcBatchItemWriter())
                 .build();
     }
 
     @Bean
-    public JdbcPagingItemReader<Pay_origin> jdbcPagingItemReader() throws Exception {
+    public JdbcPagingItemReader<Pay_origin> jdbcBatchItemWriterReader() throws Exception {
         Map<String, Object> parameterValues = new HashMap<>();
         parameterValues.put("amount", 2000);
 
@@ -71,16 +70,23 @@ public class JdbcPagingItemReaderJobConfiguration {
                 .rowMapper(new BeanPropertyRowMapper<>(Pay_origin.class)) //쿼리 결과를 java객체로 매핑
                 .queryProvider(createQueryProvider())
                 .parameterValues(parameterValues) //쿼리 매개변수
-                .name("jdbcPagingItemReader") //sring batch  executionContext에서 저장될 이름
+                .name("jdbcBatchItemWriter") //sring batch  executionContext에서 저장될 이름
                 .build();
     }
 
-    private ItemWriter<Pay_origin> jdbcPagingItemWriter() {
-        return list -> {
-            for(Pay_origin payOrigin : list) {
-                log.info("Current Pay = {}", payOrigin);
-            }
-        };
+    @Bean
+    public ItemProcessor<Pay_origin, Pay_origin> jpaItemProcessor() {
+        return pay -> new Pay_origin(pay.getAmount(), pay.getId(), pay.getTxName(), pay.getTxDateTime());
+    }
+
+    /**
+     * 제네릭 타입은 Reader에서 반환하는 값
+     * @return
+     */
+    private ItemWriter<Pay_origin> jdbcBatchItemWriter() {
+        JpaItemWriter<Pay_origin> jpaItemWriter = new JpaItemWriter<>();
+        jpaItemWriter.setEntityManagerFactory(entityManagerFactory);
+        return jpaItemWriter;
     }
 
     @Bean
@@ -99,3 +105,4 @@ public class JdbcPagingItemReaderJobConfiguration {
         return queryProvider.getObject();
     }
 }
+

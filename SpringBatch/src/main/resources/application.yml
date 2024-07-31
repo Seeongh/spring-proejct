@@ -17,7 +17,7 @@ spring:
         format_sql: true
   batch:
     job:
-      name: jdbcPagingItemReaderJob
+      name: jpaPagingItemReaderJob
     jdbc:
       initialize-schema: always
 
