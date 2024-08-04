@@ -15,6 +15,7 @@ import org.springframework.batch.item.database.JdbcPagingItemReader;
 import org.springframework.batch.item.database.JpaItemWriter;
 import org.springframework.batch.item.database.Order;
 import org.springframework.batch.item.database.PagingQueryProvider;
+import org.springframework.batch.item.database.builder.JdbcBatchItemWriterBuilder;
 import org.springframework.batch.item.database.builder.JdbcPagingItemReaderBuilder;
 import org.springframework.batch.item.database.support.SqlPagingQueryProviderFactoryBean;
 import org.springframework.context.annotation.Bean;
@@ -84,9 +85,11 @@ public class JdbcBatchItemWriterJobConfiguration {
      * @return
      */
     private ItemWriter<Pay_origin> jdbcBatchItemWriter() {
-        JpaItemWriter<Pay_origin> jpaItemWriter = new JpaItemWriter<>();
-        jpaItemWriter.setEntityManagerFactory(entityManagerFactory);
-        return jpaItemWriter;
+        return new JdbcBatchItemWriterBuilder<Pay_origin>()
+                .dataSource(dataSource)
+                .sql("insert into pay(amount, tx_name, tx_date_time) values (:amount, :txName, :txDateTime")
+                .beanMapped()
+                .build();
     }
 
     @Bean
