@@ -82,13 +82,15 @@ public class JdbcBatchItemWriterJobConfiguration {
 
     /**
      * 제네릭 타입은 Reader에서 반환하는 값
+     * 모든 Item 처리 후 트랜잭션 커밋
+     * Query를 모아두고 한번에 전송한다(chunksize만큼)
      * @return
      */
     private ItemWriter<Pay_origin> jdbcBatchItemWriter() {
         return new JdbcBatchItemWriterBuilder<Pay_origin>()
                 .dataSource(dataSource)
-                .sql("insert into pay(amount, tx_name, tx_date_time) values (:amount, :txName, :txDateTime")
-                .beanMapped()
+                .sql("insert into pay(amount, tx_name, tx_date_time) values (:amount, :txName, :txDateTime") // values(:field) dto의 getter, map의 key에 매핑됨
+                .beanMapped() //value 매핑 return type 객체, columnmapped는 Map
                 .build();
     }
 
