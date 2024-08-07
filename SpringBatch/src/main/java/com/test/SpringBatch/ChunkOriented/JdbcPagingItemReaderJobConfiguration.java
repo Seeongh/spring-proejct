@@ -5,9 +5,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
+import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
+import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.JdbcPagingItemReader;
 import org.springframework.batch.item.database.Order;
@@ -55,6 +57,7 @@ public class JdbcPagingItemReaderJobConfiguration {
         return new StepBuilder("jdbcPagingItemReaderStep", jobRepository) //simple step1 생성,
                 .<Pay_origin, Pay_origin>chunk(chunkSize, transactionManager) //Reader에서 반환할 타입, Writer에 파라미터로 넘어올 타입
                 .reader(jdbcPagingItemReader())
+                .processor(jdbcPagingItemReaderProcessor())
                 .writer(jdbcPagingItemWriter())
                 .build();
     }
@@ -69,7 +72,7 @@ public class JdbcPagingItemReaderJobConfiguration {
                 .fetchSize(chunkSize) //DataBase에서 한번에 가져올 데이터의 양
                 .dataSource(dataSource)
                 .rowMapper(new BeanPropertyRowMapper<>(Pay_origin.class)) //쿼리 결과를 java객체로 매핑
-                .queryProvider(createQueryProvider())
+                .queryProvider(createQueryProvider2())
                 .parameterValues(parameterValues) //쿼리 매개변수
                 .name("jdbcPagingItemReader") //sring batch  executionContext에서 저장될 이름
                 .build();
@@ -83,18 +86,32 @@ public class JdbcPagingItemReaderJobConfiguration {
         };
     }
 
+    @StepScope
+    public ItemProcessor<Pay_origin, Pay_origin> jdbcPagingItemReaderProcessor() {
+        log.info("processor");
+        return new ItemProcessor<Pay_origin, Pay_origin>() {
+            @Override
+            public Pay_origin process(Pay_origin item) throws Exception {
+                log.info("processor item = {}", item.toString());
+                return item;
+            }
+        };
+    }
+
     @Bean
-    public PagingQueryProvider createQueryProvider() throws Exception {
+    public PagingQueryProvider createQueryProvider2() throws Exception {
+        log.info("create providre datasource = {} ", dataSource.toString() );
+
         SqlPagingQueryProviderFactoryBean queryProvider = new SqlPagingQueryProviderFactoryBean();
         queryProvider.setDataSource(dataSource);
         queryProvider.setSelectClause("id, amount, tx_name, tx_date_time");
-        queryProvider.setFromClause("from pay");
-        queryProvider.setWhereClause("where amount >= : amount");
+        queryProvider.setFromClause("from pay_origin");
+      //  queryProvider.setWhereClause("where amount >= :amount");  // 공백 제거
 
-        Map<String, Order> sortKeys= new HashMap<>(1);
+// 정렬 키를 Map으로 직접 설정
+        Map<String, Order> sortKeys = new HashMap<>();
         sortKeys.put("id", Order.ASCENDING);
-
-        queryProvider.setSortKey(sortKeys.toString());
+        queryProvider.setSortKeys(sortKeys);  // Map 객체를 직접 사용
 
         return queryProvider.getObject();
     }

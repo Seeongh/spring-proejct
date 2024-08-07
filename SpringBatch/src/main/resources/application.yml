@@ -10,14 +10,14 @@ spring:
     url: jdbc:h2:mem:testdb
   jpa:
     hibernate:
-      ddl-auto: create #app????? ??? ??? ?? ??
+      ddl-auto: none #app????? ??? ??? ?? ??
     properties:
       hibernate:
         #show_sql: true #System.out.pringln?? ??
         format_sql: true
   batch:
     job:
-      name: jpaPagingItemReaderJob
+      name: jdbcPagingItemReaderJob
     jdbc:
       initialize-schema: always
 

@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
+import org.springframework.batch.core.configuration.annotation.JobScope;
+import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
@@ -38,17 +40,17 @@ public class CustomItemWriterJobConfiguration {
                 .build();
     }
 
-    @Bean
+    @JobScope
     public Step customItemWriterStep(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
         return new StepBuilder("customItemWriterStep", jobRepository)
-                .<Pay_origin, Pay_origin>chunk(chunkSize)
+                .<Pay_origin, Pay_origin> chunk(chunkSize, transactionManager)
                 .reader(customItemWriterReader())
                 .processor(customItemWriterProcessor())
                 .writer(customItemWriter())
                 .build();
     }
 
-    @Bean
+    @StepScope
     public JpaPagingItemReader<Pay_origin> customItemWriterReader() {
         return new JpaPagingItemReaderBuilder<Pay_origin>()
                 .name("customItemWriterReader")
@@ -58,12 +60,12 @@ public class CustomItemWriterJobConfiguration {
                 .build();
     }
 
-    @Bean
+    @StepScope
     public ItemProcessor<Pay_origin, Pay_origin> customItemWriterProcessor() {
         return Pay_origin -> new Pay_origin(Pay_origin.getAmount(), Pay_origin.getTxName(), Pay_origin.getTxDateTime());
     }
 
-    @Bean
+    @StepScope
     public ItemWriter<Pay_origin> customItemWriter() {
         return new ItemWriter<Pay_origin>() {
 

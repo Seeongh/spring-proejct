@@ -33,6 +33,7 @@ import java.util.Map;
 public class JdbcBatchItemWriterJobConfiguration {
     private final PlatformTransactionManager transactionManager;
 
+
     private final DataSource dataSource; // DataSource DI
     private final EntityManagerFactory entityManagerFactory;
     private static final int chunkSize = 10;
@@ -54,7 +55,7 @@ public class JdbcBatchItemWriterJobConfiguration {
         return new StepBuilder("jdbcBatchItemWriterStep", jobRepository) //simple step1 생성,
                 .<Pay_origin, Pay_origin>chunk(chunkSize, transactionManager) //Reader에서 반환할 타입, Writer에 파라미터로 넘어올 타입
                 .reader(jdbcBatchItemWriterReader())
-                .processor(jpaItemProcessor())
+                .processor(jpaItemProcessor2())
                 .writer(jdbcBatchItemWriter())
                 .build();
     }
@@ -64,6 +65,7 @@ public class JdbcBatchItemWriterJobConfiguration {
         Map<String, Object> parameterValues = new HashMap<>();
         parameterValues.put("amount", 2000);
 
+        log.info("ash reader()");
         return new JdbcPagingItemReaderBuilder<Pay_origin>()
                 .pageSize(chunkSize) //SELECT id, amount, tx_name, tx_date_time FROM pay WHERE amount >= : amount ORDER BY {id=ASCENDING} ASC FETCH NEXT 10 ROWS ONLY
                 .fetchSize(chunkSize) //DataBase에서 한번에 가져올 데이터의 양
@@ -76,7 +78,7 @@ public class JdbcBatchItemWriterJobConfiguration {
     }
 
     @Bean
-    public ItemProcessor<Pay_origin, Pay_origin> jpaItemProcessor() {
+    public ItemProcessor<Pay_origin, Pay_origin> jpaItemProcessor2() {
         return pay -> new Pay_origin(pay.getAmount(), pay.getId(), pay.getTxName(), pay.getTxDateTime());
     }
 
@@ -99,13 +101,13 @@ public class JdbcBatchItemWriterJobConfiguration {
         SqlPagingQueryProviderFactoryBean queryProvider = new SqlPagingQueryProviderFactoryBean();
         queryProvider.setDataSource(dataSource);
         queryProvider.setSelectClause("id, amount, tx_name, tx_date_time");
-        queryProvider.setFromClause("from pay");
-        queryProvider.setWhereClause("where amount >= : amount");
+        queryProvider.setFromClause("from pay_origin");
+        queryProvider.setWhereClause("where amount >= :amount");  // 공백 제거
 
-        Map<String, Order> sortKeys= new HashMap<>(1);
+// 정렬 키를 Map으로 직접 설정
+        Map<String, Order> sortKeys = new HashMap<>();
         sortKeys.put("id", Order.ASCENDING);
-
-        queryProvider.setSortKey(sortKeys.toString());
+        queryProvider.setSortKeys(sortKeys);  // Map 객체를 직접 사용
 
         return queryProvider.getObject();
     }
