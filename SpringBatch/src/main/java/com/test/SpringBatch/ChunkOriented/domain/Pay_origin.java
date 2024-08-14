@@ -24,19 +24,19 @@ public class Pay_origin {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long amount;
-    private String txName;
-    private LocalDateTime txDateTime;
+    private String tx_name;
+    private LocalDateTime tx_date_time;
 
     public Pay_origin(Long amount, String txName, LocalDateTime txDateTime) {
         this.amount = amount;
-        this.txName = txName;
-        this.txDateTime = txDateTime;
+        this.tx_name = txName;
+        this.tx_date_time = txDateTime;
     }
 
     public Pay_origin(Long id, Long amount, String txName, LocalDateTime txDateTime) {
         this.id = id;
         this.amount = amount;
-        this.txName = txName;
-        this.txDateTime = txDateTime;
+        this.tx_name = txName;
+        this.tx_date_time = txDateTime;
     }
 }

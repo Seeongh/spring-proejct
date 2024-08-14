@@ -5,9 +5,17 @@ spring:
       settings:
         web_allow_others: true
       path: /h2-console
+#  datasource:
+#    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:mem:testdb
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:testdb
+    driver-class-name: net.sf.log4jdbc.DriverSpy
+    #url: jdbc:log4jdbc:postgresql://192.168.123.45:5432/kosaf
+    #username: mzhc
+    #password: mzhc
+    url: jdbc:log4jdbc:postgresql://localhost:5432/mzhc_db
+    username: postgres
+    password: MZHC
   jpa:
     hibernate:
       ddl-auto: none #app????? ??? ??? ?? ??
@@ -18,8 +26,6 @@ spring:
   batch:
     job:
       name: jdbcPagingItemReaderJob
-    jdbc:
-      initialize-schema: always
 
 logging:
   level:

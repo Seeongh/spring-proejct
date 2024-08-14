@@ -105,11 +105,11 @@ public class JdbcPagingItemReaderJobConfiguration {
         SqlPagingQueryProviderFactoryBean queryProvider = new SqlPagingQueryProviderFactoryBean();
         queryProvider.setDataSource(dataSource);
         queryProvider.setSelectClause("id, amount, tx_name, tx_date_time");
-        queryProvider.setFromClause("from pay");
+        queryProvider.setFromClause("from pay_origin");
         queryProvider.setWhereClause("where amount >= :amount");  // 공백 제거
 
-// 정렬 키를 Map으로 직접 설정
-        Map<String, Order> sortKeys = new HashMap<>(1);
+        // 정렬 키를 Map으로 직접 설정
+        Map<String, Order> sortKeys = new HashMap<>();
         sortKeys.put("id", Order.ASCENDING);
         queryProvider.setSortKeys(sortKeys);  // Map 객체를 직접 사용
 

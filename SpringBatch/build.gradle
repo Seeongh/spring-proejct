@@ -29,7 +29,12 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'junit:junit:4.13.1'
-	runtimeOnly 'com.h2database:h2'
+
+	//runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
+	runtimeOnly 'org.postgresql:postgresql'
+	runtimeOnly 'org.lazyluke:log4jdbc-remix:0.2.7'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.batch:spring-batch-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
